@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { trackOutbound } from '../utils/track';
 import waveData from '../data/wave.json';
-import { howTo, SITE_URL } from '../utils/jsonld';
+import { howTo, serializeJsonLd, SITE_URL } from '../utils/jsonld';
 
 type Wave = (typeof waveData)['currentWave'];
 type PastWave = (typeof waveData)['pastWaves'][number];
@@ -52,7 +52,7 @@ export default function Grants() {
     <div className="mx-auto flex max-w-[1120px] flex-col px-6 py-10 md:px-12 md:py-16">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(grantsHowTo) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(grantsHowTo) }}
       />
       {/* Hero */}
       <section className="flex flex-col gap-6 border-b border-outline-variant pb-12">

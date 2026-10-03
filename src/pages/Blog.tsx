@@ -14,7 +14,7 @@ import {
   type AuthorLinks,
 } from '../utils/blog';
 import BlogToc from '../components/BlogToc';
-import { article, breadcrumbList, SITE_URL } from '../utils/jsonld';
+import { article, breadcrumbList, serializeJsonLd, SITE_URL } from '../utils/jsonld';
 import { track } from '../utils/track';
 import i18n from '../i18n';
 
@@ -56,7 +56,7 @@ function BlogList() {
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-12">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(listCrumbs) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(listCrumbs) }}
       />
       <Helmet>
         <title>Blog – Wraith Protocol</title>
@@ -203,11 +203,11 @@ function BlogPostDetail({ slug }: { slug: string }) {
     <article className="mx-auto max-w-5xl px-6 py-12 md:px-12">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(postArticle) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(postArticle) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(postCrumbs) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(postCrumbs) }}
       />
       <Helmet>
         <title>{post.title} – Wraith Protocol</title>
@@ -314,7 +314,7 @@ function BlogAuthor({ id }: { id: string }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
+          __html: serializeJsonLd(
             breadcrumbList([
               { name: 'Home', url: SITE_URL },
               { name: 'Blog', url: `${SITE_URL}/blog` },
